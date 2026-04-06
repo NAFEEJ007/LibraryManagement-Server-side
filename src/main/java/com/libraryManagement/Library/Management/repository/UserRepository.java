@@ -16,6 +16,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     long count();
 
+    @Query("SELECT u FROM User u WHERE u.active = true AND LOWER(u.name) LIKE LOWER(CONCAT('%', :query, '%'))")
+    List<User> searchUsersByName(@org.springframework.data.repository.query.Param("query") String query);
 }
 
 

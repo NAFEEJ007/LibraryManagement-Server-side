@@ -14,4 +14,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     long countByActiveTrue();
     @Query("SELECT b FROM Book b WHERE b.active = true")
     List<Book> findAllActiveBooks();
+
+    @Query("SELECT b FROM Book b WHERE b.active = true AND LOWER(b.title) LIKE LOWER(CONCAT('%', :query, '%'))")
+    List<Book> searchBooksByTitle(@org.springframework.data.repository.query.Param("query") String query);
 }
