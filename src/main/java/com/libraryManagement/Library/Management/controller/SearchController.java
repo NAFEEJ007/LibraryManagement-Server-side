@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class SearchController {
     private final BookRepository bookRepository;
     private final UserRepository userRepository;
 
+    @Transactional(readOnly = true)
     @GetMapping("/search")
     public ResponseEntity<SearchResponseDto> search(@RequestParam("q") String query) {
         if (query == null || query.trim().isEmpty()) {
